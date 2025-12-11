@@ -180,28 +180,7 @@ df_patrones_funnel = execute_query_to_df(query_patrones_funnel_completo)
 df_patrones_funnel.to_csv('ga4_patrones_funnel_completo.csv')
 ```
 
-## Entidades y sus Relaciones
-
-### Diagrama Entidad-Relación
-```mermaid
-erDiagram
-    GA4_EVENT ||--o{ INTENTO : "genera"
-    INTENTO ||--|| PRODUCTO : "sobre"
-    INTENTO }o--|| SESION : "pertenece"
-    SESION }o--|| USUARIO : "de"
-    
-    PROMOCION ||--o{ CONDICION : "tiene"
-    CONDICION }o--|| PRODUCTO : "aplica_a"
-    CONDICION }o--|| GRUPO_CONDICION : "pertenece"
-    GRUPO_CONDICION }o--|| PROMOCION : "define"
-    
-    PROMOCION ||--o{ VIGENCIA : "activa_en"
-    
-    INTENTO ||--o{ PATRON_DETECTADO : "cumple"
-    PATRON_DETECTADO }o--|| PROMOCION : "de"
-    
-    SESION ||--o{ LOGIN_CATEGORIA : "clasificada_como"
-```
+## Entidades de importancia principal
 
 ### Descripción de Entidades Principales
 
