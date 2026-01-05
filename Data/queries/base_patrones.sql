@@ -1,4 +1,4 @@
-CREATE OR REPLACE TABLE `sorteostec-ml.h1.intentos_producto_canonico_web_20241001_20251210`
+CREATE OR REPLACE TABLE `sorteostec-ml.h1.intentos_producto_canonico_web_20241001_20251231`
 PARTITION BY attempt_date
 CLUSTER BY ITEM, STATUS AS
 WITH
@@ -6,7 +6,7 @@ events_days AS (
   SELECT DISTINCT _TABLE_SUFFIX AS ds
   FROM `sorteostec-analytics360.analytics_277858205.events_*`
   WHERE REGEXP_CONTAINS(_TABLE_SUFFIX, r'^\d{8}$')
-    AND _TABLE_SUFFIX BETWEEN '20241001' AND '20251210' # CAMBIAR FECHA
+    AND _TABLE_SUFFIX BETWEEN '20241001' AND '20251231' # CAMBIAR FECHA
 ),
 
 e AS (
@@ -23,7 +23,7 @@ e AS (
     platform
   FROM `sorteostec-analytics360.analytics_277858205.events_*`
   WHERE REGEXP_CONTAINS(_TABLE_SUFFIX, r'^\d{8}$')
-    AND _TABLE_SUFFIX BETWEEN '20241001' AND '20251210' # CAMBIAR FECHA
+    AND _TABLE_SUFFIX BETWEEN '20241001' AND '20251231' # CAMBIAR FECHA
     AND platform = 'WEB'
     AND EXISTS (SELECT 1 FROM UNNEST(event_params) WHERE key='ga_session_id')
     AND event_name IN ('add_to_cart','begin_checkout','purhttps://servicios.sorteostec.org/Reporteador/Sitio/v1/index.htmlchase')
@@ -42,7 +42,7 @@ e AS (
     items,
     platform
   FROM `sorteostec-analytics360.analytics_277858205.events_intraday_*` i
-  WHERE i._TABLE_SUFFIX BETWEEN '20241001' AND '20251210' # CAMBIAR FECHA
+  WHERE i._TABLE_SUFFIX BETWEEN '20241001' AND '20251231' # CAMBIAR FECHA
     AND NOT EXISTS (SELECT 1 FROM events_days d WHERE d.ds = i._TABLE_SUFFIX)
     AND i.platform = 'WEB'
     AND EXISTS (SELECT 1 FROM UNNEST(i.event_params) WHERE key='ga_session_id')
@@ -182,3 +182,4 @@ FROM agg
 LEFT JOIN bc_last bc
 
   USING (user_pseudo_id, session_id, product_key, attempt_id);
+
