@@ -1,7 +1,7 @@
 SELECT
   c.clave_promocion,
   MIN(DATE(d.fecha_pagado)) d_inicio_promocion,
-  MAX(DATE(d.fecha_pagado)) d_cierre_promocion
+  MAX(DATETIME(d.fecha_pagado)) d_cierre_promocion -- Cambios JQL 9Ene26 DATETIME en vez de DATE para incluir la hora
 FROM
   `sorteostec-ml.ml_siteconversion.compras` c
 LEFT JOIN
