@@ -27,7 +27,7 @@ WITH t AS (
     traffic_medium,
     dias_para_sorteo,	
     COUNT(*) OVER(PARTITION BY TIMESTAMP_TRUNC(PARSE_DATETIME('%d/%m/%Y %H:%M:%S', DATETIME), MINUTE)) AS traffic_density_score,
-    COUNT(DISTINCT ITEM) OVER(PARTITION BY user_pseudo_id, session_id) AS products_in_session_count,
+    COUNT(DISTINCT ITEM) OVER(PARTITION BY USER, SESION) AS products_in_session_count,
     -- Fin de cambios JQL 16Ene26
 
     -- MONTOS desde el script
